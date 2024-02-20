@@ -4,7 +4,7 @@
  * Project 1
  * 02/27/2024
  *
- * TODO : Make subclasses for each type of account (checking, savings, whatever else), make statement class work. (this is polymorphism)
+ * TODO : Make subclasses for each type of account (checking, savings, cd), and implement them fully, make statement class work, figure out how to write to a document for things like viewAccount.
  */
 
 
