@@ -34,7 +34,7 @@ public class Account
             // given account has enough money
             //1. make new transaction type Transfer Out
             Transaction transaction = new Transaction(amount, toAccount, "out");
-            //2. add dat bih to the (account making the transfer)'s list
+            //2. add that to the (account making the transfer)'s list
             this.transactions.add(transaction);
             //3. call the transferIn method of the account we are sending the money to
             // the fromAccount argument will be account sending money (this)

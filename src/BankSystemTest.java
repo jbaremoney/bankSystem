@@ -17,7 +17,7 @@ public class BankSystemTest
         Customer customer = new Customer();
         customer.name = "Max Barrett";
         customer.address = "1234 Main St";
-        customer.email = "something@balls.com";
+        customer.email = "something@gmail.com";
         customer.phone = "123-456-7890";
     
 
