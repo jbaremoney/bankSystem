@@ -1,6 +1,6 @@
 public class Statement {
 
-    //this should get all attributes associated with Account
+    //this should get all attributes associated with Account class 
     Account accountUsed;
     
     void printMonthlyStatement()
