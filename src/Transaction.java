@@ -7,30 +7,34 @@ class Transaction
     Account to;
     Account from;
     String purchaseBusiness;
+    String date; //in a real application we would just use the system date, but in this case we're making fake numbers so we manually put in different dates.
 
     // constructor for either deposit or withdrawal
-    Transaction(String type, double amount){
+    Transaction(String type, double amount, String date){
         this.type = type;
         this.amount = amount;
         to = null;
         from = null;
         purchaseBusiness = null;
+        this.date = date;
     }
 
     // constructor for transferOut or transferIn
-    Transaction(double amount, Account toOrFromAccount, String inOrOut){
+    Transaction(double amount, Account toOrFromAccount, String inOrOut, String date){
         if (inOrOut.equals("out") || inOrOut.equals("Out"))  {
             type = "Transfer Out";
             this.amount = amount;
             to = toOrFromAccount;
             from = null;
             purchaseBusiness = null;
+            this.date = date;
         } else if (inOrOut.equals("in") || inOrOut.equals("In")) {
             type = "Transfer In";
             this.amount = amount;
             to = null;
             this.from = toOrFromAccount;
             purchaseBusiness = null;
+            this.date = date;
 
         }
         else {
@@ -38,12 +42,13 @@ class Transaction
         }
     }
 
-    Transaction(double amount, String purchaseBusiness){
+    Transaction(double amount, String purchaseBusiness, String date){
         type = "Purchase";
         this.amount = amount;
         to = null;
         from = null;
         this.purchaseBusiness = purchaseBusiness;
+        this.date = date;
     }
 
 

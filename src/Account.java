@@ -11,34 +11,44 @@ public class Account
 
 
     // ACCOUNT METHODS
-    void deposit(double amount)
+    void deposit(double amount, String date)
     {
         balance += amount;
+        Transaction transaction = new Transaction("Deposit", amount, date);
+        this.transactions.add(transaction);
     }
 
-    void withdraw(double amount)
+    void withdraw(double amount, String date) throws InsufficientFundsException //given account has enough money
     {
-        balance -= amount;
+       if (this.balance >= amount){
+          balance -= amount;
+          Transaction transaction = new Transaction("Withdraw", amount, date);
+          this.transactions.add(transaction);
+       }
+       else {
+            throw new InsufficientFundsException("Insufficient funds for transfer: required " + amount + ", available " + this.balance);
+        }
     }
 
-    void transferIn(Account fromAccount, double amount)
+    void transferIn(Account fromAccount, double amount, String date)
     {
+    //This just adds a transaction that has the type as In
         this.balance += amount;
-        Transaction transaction = new Transaction(amount, fromAccount, "in");
+        Transaction transaction = new Transaction(amount, fromAccount, "in", date);
         this.transactions.add(transaction);
 
     }
 
-    void transferOut(Account toAccount, double amount) throws InsufficientFundsException{
+    void transferOut(Account toAccount, double amount, String date) throws InsufficientFundsException{
         if (this.balance >= amount){
             // given account has enough money
             //1. make new transaction type Transfer Out
-            Transaction transaction = new Transaction(amount, toAccount, "out");
+            Transaction transaction = new Transaction(amount, toAccount, "out", date);
             //2. add that to the (account making the transfer)'s list
             this.transactions.add(transaction);
             //3. call the transferIn method of the account we are sending the money to
             // the fromAccount argument will be account sending money (this)
-            toAccount.transferIn(this, amount);
+            toAccount.transferIn(this, amount, date);
             this.balance -= amount;
         }
         else {
@@ -46,10 +56,11 @@ public class Account
         }
     }
 
-    void purchase(double amount, String purchaseBusiness) throws InsufficientFundsException
+    void purchase(double amount, String purchaseBusiness, String date) throws InsufficientFundsException
     {
         if (this.balance >= amount){
-            Transaction transaction = new Transaction(amount, purchaseBusiness);
+        //Simulates making a purchase
+            Transaction transaction = new Transaction(amount, purchaseBusiness, date);
             this.transactions.add(transaction);
             this.balance -= amount;
         }
@@ -62,6 +73,7 @@ public class Account
 
     void viewTransactions()
     {
+    //Not complete yet, this will print out a whole thing and potentially print to a document/xcel file
         for (Transaction transaction : transactions) {
             System.out.println(transaction.type);
         }
