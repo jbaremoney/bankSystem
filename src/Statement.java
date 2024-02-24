@@ -9,7 +9,7 @@ public class Statement {
     
     void printMonthlyStatement()
     {
-        //this should print the monthly statement of the account
+        //this should print the monthly statement of the account and save it to a file
         String fileName = "monthlyStatement.txt";
         try 
         {
