@@ -24,7 +24,7 @@ public class Statement {
             bufferedWriter.newLine();
             for (int i = 0; i < accountUsed.transactions.size(); i++)
             {
-                bufferedWriter.write(accountUsed.transactions.get(i).date + "\t");
+                //bufferedWriter.write(accountUsed.transactions.get(i).date + "\t");
                 bufferedWriter.write(accountUsed.transactions.get(i).type + "\t");
                 bufferedWriter.write(accountUsed.transactions.get(i).amount + "\t");
                 bufferedWriter.write(accountUsed.balance + "\t");
