@@ -1,13 +1,22 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Account
 {
-
+    Random rand = new Random();//For randomized accountNumber
+   
     // ACCOUNT ATTRIBUTES
     int accountNumber;
     String accountType;
     double balance;
     ArrayList<Transaction> transactions = new ArrayList<>();
+    
+    Account(String accountType, double initialDeposit)
+    {
+        accountNumber = rand.nextInt(100000);
+        this.accountType = accountType;
+        balance = initialDeposit;
+    }
 
 
     // ACCOUNT METHODS

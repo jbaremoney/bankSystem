@@ -20,9 +20,11 @@ public class BankSystemTest
 
         customer.createAccount("Checking", 1000);
         customer.createAccount("Savings", 1000);
+        customer.createAccount("CD", 1000, "1/1/2025");
         
-        Account account1 = customer.accounts.get(0);
-        Account account2 = customer.accounts.get(1);
+        CheckingAccount account1 = customer.checkingAccounts.get(0);
+        SavingsAccount account2 = customer.savingsAccounts.get(0);
+        CD account3 = customer.cdAccounts.get(0);
 
         account1.deposit(100, "1/1/2024");
         System.out.println("Account 1 balance: " + account1.balance);
@@ -33,18 +35,19 @@ public class BankSystemTest
         // testing transfer system. should transfer 1000 dollars from account 1 to account 2
         account1.transferOut(account2, 1000, "1/20/2024");
 
-        System.out.println("Account 1 transactions: " + account1.transactions);
+        System.out.println("Account 1 transactions: ");
+        account1.viewTransactions();
         System.out.println("Account 1 balance:  " + account1.balance);
 
         account1.viewTransactions(); //This is to see there are two transactions in account 1 so far.
 
-        System.out.println("Customer has " + customer.accounts.size() + " accounts");
+        System.out.println("Customer has " + customer.numOfAccounts + " accounts");
 
 
         //account1.withdraw(101); //This is to show the InsufficientFundsException
 
         customer.removeAccount(account1);
-        System.out.println("Customer has " + customer.accounts.size() + " accounts");
+        System.out.println("Customer has " + customer.numOfAccounts + " accounts");
 
 
     }
