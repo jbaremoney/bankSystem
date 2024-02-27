@@ -6,21 +6,30 @@ public class Customer {
     String address;
     String email;
     String phone;
-    int numOfAccounts;
-    ArrayList<SavingsAccount> savingsAccounts = new ArrayList<>();
-    ArrayList<CheckingAccount> checkingAccounts = new ArrayList<>();
+    int numOfAccounts; //Just a counter that shows how many total accounts there are
+    ArrayList<SavingsAccount> savingsAccounts = new ArrayList<>(); //We need three lists for accounts because we have three account classes and
+    ArrayList<CheckingAccount> checkingAccounts = new ArrayList<>(); //can't combine them into one container
     ArrayList<CD> cdAccounts = new ArrayList<>();
+
+    Customer(String name, String address, String email, String phone)
+    {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
 
    //CUSTOMER METHODS
     void createAccount(String accountType, double initialDeposit)
     {
+    //We need two if statements because the create account for checking and savings have the same exact prototype, and we can't really override it here
         if (accountType.equalsIgnoreCase("savings"))
         {
             SavingsAccount account = new SavingsAccount(accountType, initialDeposit);
             savingsAccounts.add(account);
             numOfAccounts += 1;
         }
-        else if (accountType.equalsIgnoreCase("checking"))
+        else if (accountType.equalsIgnoreCase("checking")) //The account type is what dictates what account is made
         {
             CheckingAccount account = new CheckingAccount(accountType, initialDeposit);
             checkingAccounts.add(account);
@@ -30,13 +39,13 @@ public class Customer {
     
     void createAccount(String accountType, double initialDeposit, String withdrawDate) //This is for CD accounts only because they need a withdraw date
     {
-        CD account = new CD(accountType, initialDeposit, withdrawDate);
+        CD account = new CD(accountType, initialDeposit, withdrawDate); //You have to set the withdraw date becasue CD accounts can last from three months to 5 years.
         cdAccounts.add(account);   
         numOfAccounts += 1;
     }
 
 
-    void removeAccount(SavingsAccount account) //Overloading because theres three types of accounts so theres three lists of accounts.
+    void removeAccount(SavingsAccount account) //Overloading because theres three types of accounts so theres three lists of accounts you could remove from.
     {
         savingsAccounts.remove(account);
         numOfAccounts -= 1;
@@ -61,7 +70,7 @@ public class Customer {
         System.out.printf(", Account Balance: $%.2f, Account Interest Rate: %.2f%%\n", account.balance, account.interestRate);
     }
     
-    void viewBankAccount(CheckingAccount account) //Overloaded depending on account type
+    void viewBankAccount(CheckingAccount account) //Overloading because each account type requires slightly different things to print out.
     {
         System.out.println("Account Details:");
         System.out.print("    Account Number: " + account.accountNumber + ", Account Type: " + account.accountType);

@@ -1,7 +1,6 @@
-
-
 class Transaction
 {
+//Transaction attributes
     String type;
     double amount;
     Account to;
@@ -13,15 +12,15 @@ class Transaction
     Transaction(String type, double amount, String date){
         this.type = type;
         this.amount = amount;
-        to = null;
+        to = null; //Some variables are set to null because for a deposit there is no to or from.
         from = null;
         purchaseBusiness = null;
         this.date = date;
     }
 
     // constructor for transferOut or transferIn
-    Transaction(double amount, Account toOrFromAccount, String inOrOut, String date){
-        if (inOrOut.equals("out") || inOrOut.equals("Out"))  {
+    Transaction(double amount, Account toOrFromAccount, String inOrOut, String date){ 
+        if (inOrOut.equals("out") || inOrOut.equals("Out"))  { //String inOrOut will decide what type of transaction is created
             type = "Transfer Out";
             this.amount = amount;
             to = toOrFromAccount;

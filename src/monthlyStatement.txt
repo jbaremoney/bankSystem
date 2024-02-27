@@ -1,17 +1,17 @@
-Customer: Max Barrett	Statement printed: 1/1/2024 to 2/1/2024
-Account Number: 83205	Account Type: Savings
+Customer: Max Barrett	Statement printed: 2/1/2024 to 3/1/2024
+Account Number: 3108	Account Type: Savings
 Date			Transaction Type		Amount		Balance
-1/12/2024		Withdraw			50.0		1950.0	
-1/20/2024		Transfer In			1000.0		1950.0	
 
 
-Account Number: 6120	Account Type: Checking
+Account Number: 81141	Account Type: Checking
 Date			Transaction Type		Amount		Balance
-1/1/2024		Deposit 			100.0		140.05	
-1/20/2024		Transfer Out			1000.0		140.05	
-1/22/2024		Deposit 			50.05		140.05	
-1/1/2024		Purchase			10.0		140.05	
+2/2/2024		Deposit 			100.0		240.05	
 
-
-Account Number: 96260	Account Type: CD
+Account Number: 83437	Account Type: Checking
 Date			Transaction Type		Amount		Balance
+2/1/2024		Deposit 			100.0		649.37	
+
+
+Account Number: 97455	Account Type: CD
+Date			Transaction Type		Amount		Balance
+

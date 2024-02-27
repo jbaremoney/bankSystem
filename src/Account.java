@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.HashMap;
 
 public class Account
 {
@@ -9,13 +10,15 @@ public class Account
     int accountNumber;
     String accountType;
     double balance;
-    ArrayList<Transaction> transactions = new ArrayList<>();
+    ArrayList<Transaction> transactions = new ArrayList<>(); //List of transactions that allows access to it
+    HashMap<String, Double> datedBalances = new HashMap<String, Double>(); //This is mainly for the Statement class to see how the balances change each transaction
     
     Account(String accountType, double initialDeposit)
     {
-        accountNumber = rand.nextInt(100000);
+        accountNumber = rand.nextInt(100000); //Just a random account number
         this.accountType = accountType;
         balance = initialDeposit;
+        datedBalances.put("0/0/0", initialDeposit); //Initial deposit with a fake date so the initial deposit doesn't show up in the Statement
     }
 
 
@@ -23,16 +26,18 @@ public class Account
     void deposit(double amount, String date)
     {
         balance += amount;
-        Transaction transaction = new Transaction("Deposit ", amount, date);
-        this.transactions.add(transaction);
+        Transaction transaction = new Transaction("Deposit ", amount, date); //Every transaction (deposit, withdraw, etc) needs to create a transaction
+        this.transactions.add(transaction); //Then the transactions have to be added to the transaction list for the account
+        datedBalances.put(date, balance); //Then add to the datedBalances to show how the balance changes each time.
     }
 
     void withdraw(double amount, String date) throws InsufficientFundsException //given account has enough money
     {
        if (this.balance >= amount){
           balance -= amount;
-          Transaction transaction = new Transaction("Withdraw", amount, date);
+          Transaction transaction = new Transaction("Withdraw", amount, date); //Same rules for withdraw as deposit
           this.transactions.add(transaction);
+          datedBalances.put(date, balance);
        }
        else {
             throw new InsufficientFundsException("Insufficient funds for transfer: required " + amount + ", available " + this.balance);
@@ -45,6 +50,7 @@ public class Account
         this.balance += amount;
         Transaction transaction = new Transaction(amount, fromAccount, "in", date);
         this.transactions.add(transaction);
+        datedBalances.put(date, balance);
 
     }
 
@@ -59,6 +65,7 @@ public class Account
             // the fromAccount argument will be account sending money (this)
             toAccount.transferIn(this, amount, date);
             this.balance -= amount;
+            datedBalances.put(date, balance);
         }
         else {
             throw new InsufficientFundsException("Insufficient funds for transfer: required " + amount + ", available " + this.balance);
@@ -72,6 +79,7 @@ public class Account
             Transaction transaction = new Transaction(amount, purchaseBusiness, date);
             this.transactions.add(transaction);
             this.balance -= amount;
+            datedBalances.put(date, balance);
         }
         else {
             throw new InsufficientFundsException("Insufficient funds for purchase: required " + amount + ", available " + this.balance);
@@ -84,22 +92,23 @@ public class Account
     {
         System.out.println(accountNumber + " Transactions: ");
         for (Transaction transaction : transactions) {
+        //So many if statements because we need to print out different things based on the different types of transaction
             if (transaction.type.equalsIgnoreCase("deposit ") | transaction.type.equalsIgnoreCase("withdraw")) //deposit and withdraw have the same amount of attributes to print
             {
                 System.out.println("    Transaction type: " + transaction.type + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
             }
             
-            else if (transaction.type.equalsIgnoreCase("Transfer Out"))
+            else if (transaction.type.equalsIgnoreCase("Transfer Out")) //Transfer out needs to see which account the money got transfered to
             {
-                System.out.println("    Transaction type: " + transaction.type + ", Transfered to " + transaction.to.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+                System.out.println("    Transaction type: " + transaction.type + ", Transfered to account number " + transaction.to.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
             }
             
-            else if (transaction.type.equalsIgnoreCase("Transfer In"))
+            else if (transaction.type.equalsIgnoreCase("Transfer In")) //Transfer in needs to see which account the money came from
             {
-                System.out.println("    Transaction type: " + transaction.type + ", Transfered from " + transaction.from.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+                System.out.println("    Transaction type: " + transaction.type + ", Transfered from account number " + transaction.from.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
             }
             
-            else if (transaction.type.equalsIgnoreCase("purchase"))
+            else if (transaction.type.equalsIgnoreCase("purchase")) //Purchase needs to show where the purchase took place. 
             {
                 System.out.println("    Transaction type: " + transaction.type + ", Purchased from " + transaction.purchaseBusiness + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
             }
