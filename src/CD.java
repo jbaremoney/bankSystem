@@ -9,7 +9,7 @@ public class CD extends Account {
     }
 
     //gets the withdraw date
-    String checkWithdrawDate()
+    String getWithdrawDate()
     {
         return withdrawDate;
     }

@@ -54,15 +54,42 @@ public class Customer {
         numOfAccounts -= 1;
     }
     
-    void viewBankAccount(Account account) //Just prints the account details to the console
+    void viewBankAccount(SavingsAccount account) //Just prints the account details to the console
     {
-        
+        System.out.println("Account Details:");
+        System.out.print("    Account Number: " + account.accountNumber + ", Account Type: " + account.accountType);
+        System.out.printf(", Account Balance: $%.2f, Account Interest Rate: %.2f%%\n", account.balance, account.interestRate);
     }
+    
+    void viewBankAccount(CheckingAccount account) //Overloaded depending on account type
+    {
+        System.out.println("Account Details:");
+        System.out.print("    Account Number: " + account.accountNumber + ", Account Type: " + account.accountType);
+        System.out.printf(", Debit Number: %10d, Account Balance: $%.2f\n", account.debitNumber, account.balance);
+    }
+    
+    void viewBankAccount(CD account) 
+    {
+        System.out.println("Account Details:");
+        System.out.print("    Account Number: " + account.accountNumber + ", Account Type: " + account.accountType + ", Withdraw Date: " + account.getWithdrawDate());
+        System.out.printf(", Account Balance: $%.2f, Account Interest Rate: %.2f%%\n", account.balance, account.interestRate);
+    }
+
+
     
     void viewAllBankAccounts() //will call viewBankAccount on all accounts
     {
-      //for(Account account : accounts){
-      //   viewBankAccount(account);
+        System.out.println("Viewing All Accounts");
+        for(SavingsAccount account : savingsAccounts){
+           viewBankAccount(account);
+        }
       
+        for(CheckingAccount account : checkingAccounts){
+           viewBankAccount(account);
+        }
+      
+        for(CD account : cdAccounts){
+           viewBankAccount(account);
+        }
     }
 }

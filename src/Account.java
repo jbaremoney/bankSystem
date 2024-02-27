@@ -23,7 +23,7 @@ public class Account
     void deposit(double amount, String date)
     {
         balance += amount;
-        Transaction transaction = new Transaction("Deposit", amount, date);
+        Transaction transaction = new Transaction("Deposit ", amount, date);
         this.transactions.add(transaction);
     }
 
@@ -82,9 +82,27 @@ public class Account
 
     void viewTransactions()
     {
-    //Not complete yet, this will print out a whole thing and potentially print to a document/xcel file
+        System.out.println(accountNumber + " Transactions: ");
         for (Transaction transaction : transactions) {
-            System.out.println(transaction.type);
+            if (transaction.type.equalsIgnoreCase("deposit ") | transaction.type.equalsIgnoreCase("withdraw")) //deposit and withdraw have the same amount of attributes to print
+            {
+                System.out.println("    Transaction type: " + transaction.type + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+            }
+            
+            else if (transaction.type.equalsIgnoreCase("Transfer Out"))
+            {
+                System.out.println("    Transaction type: " + transaction.type + ", Transfered to " + transaction.to.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+            }
+            
+            else if (transaction.type.equalsIgnoreCase("Transfer In"))
+            {
+                System.out.println("    Transaction type: " + transaction.type + ", Transfered from " + transaction.from.accountNumber + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+            }
+            
+            else if (transaction.type.equalsIgnoreCase("purchase"))
+            {
+                System.out.println("    Transaction type: " + transaction.type + ", Purchased from " + transaction.purchaseBusiness + ", Transaction amount: " + transaction.amount + ", Date: " + transaction.date);
+            }
         }
     }
 
